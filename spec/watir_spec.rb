@@ -2,12 +2,13 @@ require 'spec_helper.rb'
 require 'pry'
 
 describe "Navigate to the tumblr website" do
-  # before(:all) do
+    
     browser = Watir::Browser.new :firefox
     browser.goto "http://tumblr.com/login"
-
     browser.driver.manage.timeouts.implicit_wait = 10
     
+
+    it "entering email with no tumblr account" do
     #testing email with no tumblr account error
 
     # waits for the email text field and then enters the email into the text field
@@ -16,10 +17,10 @@ describe "Navigate to the tumblr website" do
     browser.button(:class, "big signup_forms_submit touchy blue").when_present.click
     #verifies what error was shown
     browser.ul(:class => "signup_forms_errors").when_present.li(:class => "error").when_present.text == "This email doesn't have a Tumblr account. "
-    #quits the browser
-    # browser.quit
+  end
+   
 
-    
+  it "entering invalid email" do
     #testing invalid email syntax error
 
     # waits for the email text field and then enters the email into the text field
@@ -28,10 +29,10 @@ describe "Navigate to the tumblr website" do
     browser.button(:class, "big signup_forms_submit touchy blue").when_present.click
     #verifies what error was shown
     browser.ul(:class => "signup_forms_errors").when_present.li(:class => "error").when_present.text == "This email doesn't have a Tumblr account. "
-    #quits the browser
-    # browser.quit
+  end
+    
 
-
+  it "should navigate to the tumblr website and login" do
     #testing Logging in using valid credentials and posting some text
 
     # waits for the email text field and then enters the email into the text field
@@ -42,6 +43,10 @@ describe "Navigate to the tumblr website" do
     browser.text_field(:id => "signup_password").when_present.set "123456pass"
     # waits for the login button and clicks the log in button
     browser.button(id: "signup_forms_submit").when_present.click
+  end
+
+
+  it "posting a text" do
     # waits for compose button and then clicks the compose button
     browser.button(:class, "compose-button").when_present.click
     # waits for the text button and then clicks the text button
@@ -60,10 +65,10 @@ describe "Navigate to the tumblr website" do
     browser.div(:class => "tab iconic tab_nav_account").when_present.click
     browser.div(:class => "popover_item_suffix").when_present.click
     browser.button(:class => "ui_button btn_1 chrome blue").when_present.click
-    #quits the browser
-    # browser.quit
+  end
 
 
+  it "entering invalid password" do
     #testing wrong password error
 
     # waits for the email text field and then enters the email into the text field
@@ -76,7 +81,7 @@ describe "Navigate to the tumblr website" do
     browser.button(id: "signup_forms_submit").when_present.click
     #verifies what error was shown
     browser.ul(:class => "signup_forms_errors").when_present.li(:class => "error").when_present.text == "Your email or password were incorrect."
-
+  end
 
 
 
